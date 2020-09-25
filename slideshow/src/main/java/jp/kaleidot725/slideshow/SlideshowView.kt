@@ -3,21 +3,31 @@ package jp.kaleidot725.slideshow
 import android.content.Context
 import android.util.AttributeSet
 import android.view.animation.Animation
+import android.widget.FrameLayout
 import android.widget.ImageSwitcher
 import android.widget.ImageView
 import java.util.*
 
-class SlideshowView : ImageSwitcher {
+class SlideshowView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : ImageSwitcher(context, attrs) {
     private var timer: Timer? = null
     private var slides: CycleIterator<Slide>? = null
-    private var interval : Long= DEFAULT_INTERVAL
+    private var interval: Long = DEFAULT_INTERVAL
 
-    constructor(context: Context) : super(context) {
-        init(context, null)
-    }
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init(context, attrs)
+    init {
+        this.setFactory {
+            ImageView(context).also { imageView ->
+                // FIXME get scale type from xml attributes
+                imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+                imageView.layoutParams = FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.MATCH_PARENT
+                )
+            }
+        }
     }
 
     fun start() {
@@ -44,16 +54,6 @@ class SlideshowView : ImageSwitcher {
 
     fun setSlideOutAnimation(animation: Animation) {
         this.outAnimation = animation
-    }
-
-    private fun init(context: Context?, attrs: AttributeSet?) {
-        this.setFactory {
-            ImageView(context).also {imageView ->
-                // FIXME get scale type from xml attributes
-                imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-                imageView.layoutParams = this.layoutParams
-            }
-        }
     }
 
     private fun createTimerTask(): TimerTask {
