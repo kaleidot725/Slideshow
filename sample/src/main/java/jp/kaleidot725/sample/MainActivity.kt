@@ -1,6 +1,7 @@
 package jp.kaleidot725.sample
 
 import android.os.Bundle
+import android.view.animation.AlphaAnimation
 import androidx.appcompat.app.AppCompatActivity
 import jp.kaleidot725.slideshow.SlideFactory
 import kotlinx.android.synthetic.main.activity_main.*
@@ -16,7 +17,9 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
                     SlideFactory.create(R.drawable.ic_launcher_foreground)
                 )
             )
-            setInterval(5000)
+            inAnimation = AlphaAnimation(0.0f, 1.0f).apply { duration = 1000 }
+            outAnimation = AlphaAnimation(1.0f, 0.0f).apply { duration = 1000 }
+            setInterval(1000)
             start()
         }
     }
