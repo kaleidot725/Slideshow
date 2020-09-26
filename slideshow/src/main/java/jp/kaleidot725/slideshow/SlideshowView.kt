@@ -14,17 +14,24 @@ class SlideshowView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ImageSwitcher(context, attrs) {
     private var timer: Timer? = null
-    private var slides: CycleIterator<Slide>? = null
-    private var interval: Long = DEFAULT_INTERVAL
+    private var cycleIterator: CycleIterator<Slide>? = null
+
+    var slides: List<Slide> = emptyList()
+        set(value) {
+            cycleIterator = CycleIterator(value)
+            field = value
+        }
+
+    var interval: Long = DEFAULT_INTERVAL
 
     init {
         this.setFactory {
             ImageView(context).also { imageView ->
                 // FIXME get scale type from xml attributes
                 imageView.scaleType = ImageView.ScaleType.CENTER_CROP
-                imageView.layoutParams = FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.MATCH_PARENT
+                imageView.layoutParams = LayoutParams(
+                    LayoutParams.MATCH_PARENT,
+                    LayoutParams.MATCH_PARENT
                 )
             }
         }
@@ -40,27 +47,11 @@ class SlideshowView @JvmOverloads constructor(
         this.timer = null
     }
 
-    fun setInterval(interval: Long) {
-        this.interval = interval
-    }
-
-    fun setSlides(slides: List<Slide>) {
-        this.slides = CycleIterator(slides)
-    }
-
-    fun setSlideInAnimation(animation: Animation) {
-        this.inAnimation = animation
-    }
-
-    fun setSlideOutAnimation(animation: Animation) {
-        this.outAnimation = animation
-    }
-
     private fun createTimerTask(): TimerTask {
         return object : TimerTask() {
             override fun run() {
                 this@SlideshowView.post {
-                    slides?.next()?.load(this@SlideshowView)
+                    cycleIterator?.next()?.load(this@SlideshowView)
                 }
             }
         }

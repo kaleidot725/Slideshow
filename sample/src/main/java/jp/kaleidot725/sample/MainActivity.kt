@@ -11,15 +11,13 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         super.onCreate(savedInstanceState)
 
         slide_show_view.apply {
-            setSlides(
-                arrayListOf(
-                    SlideFactory.create(R.drawable.ic_launcher_background),
-                    SlideFactory.create(R.drawable.ic_launcher_foreground)
-                )
+            slides = arrayListOf(
+                SlideFactory.create(R.drawable.ic_launcher_background),
+                SlideFactory.create(R.drawable.ic_launcher_foreground)
             )
             inAnimation = AlphaAnimation(0.0f, 1.0f).apply { duration = 1000 }
             outAnimation = AlphaAnimation(1.0f, 0.0f).apply { duration = 1000 }
-            setInterval(1000)
+            interval = 1000
             start()
         }
     }
