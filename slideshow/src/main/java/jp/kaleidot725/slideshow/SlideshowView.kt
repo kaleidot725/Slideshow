@@ -22,22 +22,28 @@ class SlideshowView @JvmOverloads constructor(
             field = value
         }
 
+    var scaleType: ImageView.ScaleType = ImageView.ScaleType.CENTER_CROP
     var interval: Long = DEFAULT_INTERVAL
 
     init {
+        context.obtainStyledAttributes(attrs, R.styleable.SlideshowView).apply {
+            val scaleTypeIndex = this.getInteger(R.styleable.SlideshowView_scaleType, 0)
+            this@SlideshowView.scaleType =  ImageView.ScaleType.values()[scaleTypeIndex]
+            this@SlideshowView.interval = this.getInteger(R.styleable.SlideshowView_interval, 1000).toLong()
+            recycle()
+        }
+    }
+
+    fun start() {
         this.setFactory {
             ImageView(context).also { imageView ->
-                // FIXME get scale type from xml attributes
-                imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+                imageView.scaleType = scaleType
                 imageView.layoutParams = LayoutParams(
                     LayoutParams.MATCH_PARENT,
                     LayoutParams.MATCH_PARENT
                 )
             }
         }
-    }
-
-    fun start() {
         this.timer?.cancel()
         this.timer = Timer().apply { schedule(createTimerTask(), interval, interval) }
     }
