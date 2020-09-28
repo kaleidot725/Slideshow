@@ -15,7 +15,16 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         slide_show_view.interval = DEFAULT_INTERVAL
         slide_show_view.inAnimation = DEFAULT_IN_ANIMATION
         slide_show_view.outAnimation = DEFAULT_OUT_ANIMATION
+    }
+
+    override fun onResume() {
+        super.onResume()
         slide_show_view.start()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        slide_show_view.stop()
     }
 
     companion object {
