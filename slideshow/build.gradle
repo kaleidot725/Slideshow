@@ -1,6 +1,10 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
+
+version = '1.0.0'
 
 android {
     compileSdkVersion 30
@@ -32,4 +36,42 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
+
+install {
+    group = 'slideshow'
+
+    repositories.mavenInstaller {
+        pom {
+            project {
+                packaging 'aar'
+                groupId 'slideshow'
+                artifactId 'slideshow-ui'
+                name 'slideshow'
+                description 'Slideshow Library for Android.'
+                url 'https://github.com/kaleidot725/slideshow'
+
+                licenses {
+                    license {
+                        name 'MIT License'
+                        url 'https://opensource.org/licenses/mit-license.php'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'kaleidot725'
+                        name 'Yusuke Katsuragawa'
+                        email 'hakodate.katsuragawa.yusuke@gmail.com'
+                    }
+                }
+
+                scm {
+                    connection 'https://github.com/kaleidot725/slideshow.git'
+                    developerConnection 'https://github.com/kaleidot725/slideshow.git'
+                    url 'https://github.com/kaleidot725/slideshow'
+                }
+            }
+        }
+    }
 }
