@@ -6,12 +6,6 @@ Slideshow is Android library for previewing multiple images.
 
 ![](./sample.gif)
 
-# Download
-
-```
-It's in preparation.
-```
-
 # Quick Start
 
 Place `SlideShowView` to Activity or Fragment layout file.
