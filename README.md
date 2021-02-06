@@ -1,7 +1,5 @@
 # Slideshow
 
- [ ![Download](https://api.bintray.com/packages/kaleidot725/slideshow/slideshow-ui/images/download.svg?version=0.1.0) ](https://bintray.com/kaleidot725/slideshow/slideshow-ui/0.1.0/link)
-
 Slideshow is Android library for previewing multiple images.
 
 ![](./sample.gif)
