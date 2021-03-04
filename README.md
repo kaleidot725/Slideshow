@@ -1,12 +1,12 @@
 # Slideshow
 
-Slideshow is Android library for previewing multiple images.
+The Slideshow is an android library for previewing images.
 
 ![](./sample.gif)
 
 # Quick Start
 
-Place `SlideShowView` to Activity or Fragment layout file.
+Place `SlideShowView` to an activity or fragment layout file.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -25,7 +25,7 @@ Place `SlideShowView` to Activity or Fragment layout file.
 </FrameLayout>
 ```
 
-Request Previewing Multiple Image to `SlideShowView`.
+Request previewing images to `SlideShowView`.
 
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
